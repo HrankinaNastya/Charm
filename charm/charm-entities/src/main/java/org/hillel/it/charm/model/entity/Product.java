@@ -1,5 +1,6 @@
 package org.hillel.it.charm.model.entity;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +14,14 @@ public class Product extends BaseEntity{
 	private String material;
 	private String production;
 	private String description;
+	private Image photo;
 	private int cost;
 	private final String currency = "грн";
 	private List<Comment> commentsOfProduct = new ArrayList<>();
 	
 	public Product(int idProduct, String nameProduct, Group group, SubGroup subGroup, 
 			String article, List<Size> sizes, String material, String production, 
-			String description, int cost){
+			String description, int cost, Image photo){
 		this.idProduct = idProduct;
 		this.nameProduct = nameProduct;
 		this.group = group;
@@ -30,6 +32,7 @@ public class Product extends BaseEntity{
 		this.production = production;
 		this.description = description;
 		this.cost = cost;
+		this.photo = photo;
 	}
 	
 	public int getIdProduct() {
@@ -122,6 +125,14 @@ public class Product extends BaseEntity{
 
 	public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
 		this.commentsOfProduct = commentsOfProduct;
+	}
+
+	public Image getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Image photo) {
+		this.photo = photo;
 	}
 
 	
