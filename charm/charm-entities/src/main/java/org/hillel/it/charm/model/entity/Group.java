@@ -3,6 +3,11 @@ package org.hillel.it.charm.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Group {
 	private int idGroup;
 	private String nameGroup;
@@ -13,6 +18,7 @@ public class Group {
 		this.nameGroup = nameGroup;
 	}
 	
+	@XmlAttribute(name="identifier")
 	public int getIdGroup() {
 		return idGroup;
 	}
@@ -21,6 +27,7 @@ public class Group {
 		this.idGroup = idGroup;
 	}
 
+	@XmlElement(name="group")
 	public String getNameGroup() {
 		return nameGroup;
 	}
@@ -29,6 +36,7 @@ public class Group {
 		this.nameGroup = nameGroup;
 	}
 
+	@XmlElement(name="subgroup")
 	public List<SubGroup> getSubgroups() {
 		return subGroups;
 	}
