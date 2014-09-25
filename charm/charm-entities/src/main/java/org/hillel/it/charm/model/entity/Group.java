@@ -6,10 +6,21 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "GROUPS")
 @XmlRootElement
 public class Group {
+	@Id
+	@Column(name = "ID")
+	@GeneratedValue
 	private int idGroup;
+	@Column(name = "group")
 	private String nameGroup;
 	private List<SubGroup> subGroups = new ArrayList<>();
 	
@@ -18,7 +29,8 @@ public class Group {
 		this.nameGroup = nameGroup;
 	}
 	
-	@XmlAttribute(name="identifier")
+
+	@XmlAttribute(name="ID")
 	public int getIdGroup() {
 		return idGroup;
 	}
