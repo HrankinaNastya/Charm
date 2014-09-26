@@ -17,14 +17,13 @@ import javax.ws.rs.core.Response.Status;
 
 import org.hillel.it.charm.model.entity.Group;
 
-@Path("products")
+@Path("groups")
 public class GroupResource {
 	private GroupService groupService 
 	 = new GroupService();
 	
 	@GET
 	@Produces({ 
-		MediaType.APPLICATION_XML,
 		MediaType.APPLICATION_JSON
 	})
 	public List<Group> getGroups() {
@@ -33,7 +32,6 @@ public class GroupResource {
 
 	@GET
 	@Produces({ 
-		MediaType.APPLICATION_XML,
 		MediaType.APPLICATION_JSON
 	})
 	@Path("{id}")
@@ -71,7 +69,6 @@ public class GroupResource {
 	
 	@DELETE
 	@Produces({ 
-		MediaType.APPLICATION_XML,
 		MediaType.APPLICATION_JSON
 	})
 	@Path("{id}")

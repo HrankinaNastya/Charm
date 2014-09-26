@@ -16,7 +16,7 @@ public class GroupService {
 		if(id <=0 ) {
 			return null;
 		}
-		return new Group(1, "Phone");
+		return new Group(1, "Dresses");
 	}
 	
 	public void updateGroup(Group group) {

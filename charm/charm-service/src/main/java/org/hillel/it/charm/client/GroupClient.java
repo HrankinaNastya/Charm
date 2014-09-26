@@ -60,7 +60,7 @@ throw new RuntimeException("Invalid status code " + response.getStatus());
 		}		
 	}
 	
-	public void deleteProduct(String id) {
+	public void deleteGroup(String id) {
 		WebTarget target = client.target(BASE_URI);
 		
 		Response response =  
