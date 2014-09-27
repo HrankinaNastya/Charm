@@ -9,6 +9,10 @@ public class SubGroup {
 	private String nameSubGroup;
 	private List<Product> products = new ArrayList<>();;
 	
+	public SubGroup() {
+		super();
+	}
+
 	public SubGroup(int idSubGroup, String nameSubGroup){
 		this.idSubGroup = idSubGroup;
 		this.nameSubGroup = nameSubGroup;

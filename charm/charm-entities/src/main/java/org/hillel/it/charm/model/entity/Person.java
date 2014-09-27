@@ -8,6 +8,11 @@ public class Person extends BaseEntity{
 	private String phone;
 	private String address;
 	private String email;
+
+	public Person() {
+		super();
+	}
+
 	private Category category;
 	
 	Person(int idPerson, String name, String surname, String patronymic, 

@@ -16,9 +16,13 @@ public class Product extends BaseEntity{
 	private String description;
 	private Image photo;
 	private int cost;
-	private final String currency = "грн";
+	private final String currency = "пїЅпїЅпїЅ";
 	private List<Comment> commentsOfProduct = new ArrayList<>();
 	
+	public Product() {
+		super();
+	}
+
 	public Product(int idProduct, String nameProduct, Group group, SubGroup subGroup, 
 			String article, List<Size> sizes, String material, String production, 
 			String description, int cost, Image photo){

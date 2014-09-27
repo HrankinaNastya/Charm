@@ -6,6 +6,10 @@ public class Comment {
 	private Person person;
 	private Product product;
 	
+	public Comment(){
+		super();
+	}
+	
 	public Comment(int idComment, String comment, Person person, Product product) {
 		this.idComment = idComment;
 		this.comment = comment;

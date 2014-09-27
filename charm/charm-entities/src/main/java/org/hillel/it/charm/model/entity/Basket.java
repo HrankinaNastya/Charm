@@ -10,7 +10,9 @@ public class Basket {
 	private int amountOfOrders;
 	private Person person;
 	
-
+	public Basket(){
+		super();
+	}
 	public Basket(int idBasket, List<Order> orders) {
 		this.idBasket = idBasket;
 		this.orders = orders;

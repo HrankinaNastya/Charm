@@ -12,6 +12,10 @@ public class Payment {
 		this.isPayment = false;
 	}
 
+	public Payment() {
+		super();
+	}
+
 	public int getIdPayment() {
 		return idPayment;
 	}

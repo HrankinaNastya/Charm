@@ -9,6 +9,10 @@ public class Order {
 	private Person person;
 	private String dataOfPerson;
 	
+	public Order(){
+		super();
+	}
+	
 	public Order(int idOrder, int amount, Product product, Person person){
 		this.idOrder = idOrder;
 		this.product = product;

@@ -24,6 +24,10 @@ public class Group {
 	private String nameGroup;
 	private List<SubGroup> subGroups = new ArrayList<>();
 	
+	public Group(){
+		super();
+	}
+	
 	public Group(int idGroup, String nameGroup){
 		this.idGroup = idGroup;
 		this.nameGroup = nameGroup;
