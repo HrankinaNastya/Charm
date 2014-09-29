@@ -7,4 +7,12 @@
   </parent>
   <artifactId>charm-persistence</artifactId>
   
+  <dependencies>
+	<dependency>
+		<groupId>org.hillel.it</groupId>
+		<artifactId>charm-entities</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+  </dependencies>
+  
 </project>
