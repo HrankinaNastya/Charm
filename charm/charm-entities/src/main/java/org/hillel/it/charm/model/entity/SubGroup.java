@@ -7,7 +7,7 @@ public class SubGroup {
 	private int idSubGroup;
 	private Group group;
 	private String nameSubGroup;
-	private List<Product> products = new ArrayList<>();;
+	private List<Product> products = new ArrayList<>();
 	
 	public SubGroup() {
 		super();

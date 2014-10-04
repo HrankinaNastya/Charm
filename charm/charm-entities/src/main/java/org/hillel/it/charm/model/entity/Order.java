@@ -20,7 +20,7 @@ public class Order {
 		this.amount = amount;
 		setCost();
 		this.person = person;
-		setDataOfPerson();
+		//setDataOfPerson();
 	}
 	
 	public int getIdOrder() {
@@ -75,9 +75,9 @@ public class Order {
 		return dataOfPerson;
 	}
 
-	public void setDataOfPerson() {
-		this.dataOfPerson = getPerson().getId() + ": " + getPerson().getSurname() 
-				+ " " + getPerson().getName();
-	}
+//	public void setDataOfPerson() {
+	//	this.dataOfPerson = getPerson().getId() + ": " + getPerson().getSurname() 
+	//			+ " " + getPerson().getName();
+	//}
 	
 }

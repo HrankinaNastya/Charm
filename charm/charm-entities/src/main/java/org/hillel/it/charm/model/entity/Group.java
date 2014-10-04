@@ -1,8 +1,5 @@
 package org.hillel.it.charm.model.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,14 +12,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "GROUPS")
 @XmlRootElement
-public class Group {
+public class Group extends BaseEntity{
 	@Id
-	@Column(name = "ID")
+	@Column(name = "GROUP_ID")
 	@GeneratedValue
 	private int idGroup;
-	@Column(name = "group")
+	
+	@Column(name="NAME",length=32,nullable=false,
+			unique=true)
 	private String nameGroup;
-	private List<SubGroup> subGroups = new ArrayList<>();
 	
 	public Group(){
 		super();
@@ -50,15 +48,6 @@ public class Group {
 
 	public void setNameGroup(String nameGroup) {
 		this.nameGroup = nameGroup;
-	}
-
-	@XmlElement(name="subgroup")
-	public List<SubGroup> getSubgroups() {
-		return subGroups;
-	}
-
-	public void setSubgroups(List<SubGroup> subGroups) {
-		this.subGroups = subGroups;
 	}
 
 }

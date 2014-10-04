@@ -29,6 +29,8 @@ public class GroupResource {
 	public List<Group> getGroups() {
 		return groupService.getGroups();
 	}
+	
+
 
 	@GET
 	@Produces({ 

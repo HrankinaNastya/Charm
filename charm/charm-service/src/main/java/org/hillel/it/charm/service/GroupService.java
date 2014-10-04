@@ -1,10 +1,12 @@
 package org.hillel.it.charm.service;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.hillel.it.charm.model.entity.Group;
+import org.hillel.it.charm.model.entity.SubGroup;
 
 public class GroupService {
 	public List<Group> getGroups() {
@@ -12,6 +14,7 @@ public class GroupService {
 				new Group(2, "Clothing"));
 	}
 	
+
 	public Group getGroup(int id) {
 		if(id <=0 ) {
 			return null;
