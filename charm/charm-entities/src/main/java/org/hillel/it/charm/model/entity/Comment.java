@@ -49,5 +49,4 @@ public class Comment {
 		this.product = product;
 	}
 	
-
 }

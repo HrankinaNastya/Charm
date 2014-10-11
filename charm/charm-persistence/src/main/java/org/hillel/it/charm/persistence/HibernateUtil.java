@@ -5,7 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.hillel.it.charm.model.entity.BaseEntity;
 import org.hillel.it.charm.model.entity.Group;
+import org.hillel.it.charm.model.entity.Product;
+import org.hillel.it.charm.model.entity.SubGroup;
 
 public class HibernateUtil {
 	private final static SessionFactory 
@@ -22,6 +25,9 @@ public class HibernateUtil {
 			Configuration configuration = 
 					new Configuration().
 					addAnnotatedClass(Group.class).
+					addAnnotatedClass(SubGroup.class).
+					addAnnotatedClass(Product.class).
+					addAnnotatedClass(BaseEntity.class).
 					configure();
 			ServiceRegistry registry = new 
 					StandardServiceRegistryBuilder().

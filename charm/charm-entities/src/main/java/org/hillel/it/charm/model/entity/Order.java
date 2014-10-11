@@ -60,7 +60,7 @@ public class Order {
 	}
 
 	public void setCost() {
-		this.cost = getProduct().getCost();
+	//	this.cost = getProduct().getCost();
 	}
 
 	public Person getPerson() {

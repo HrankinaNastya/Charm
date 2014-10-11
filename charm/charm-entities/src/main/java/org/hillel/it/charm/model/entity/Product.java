@@ -1,50 +1,66 @@
 package org.hillel.it.charm.model.entity;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCTS")
 public class Product extends BaseEntity{
-	private int idProduct;
+	
+	@Column(name="NAME_PRODUCT",length=32,nullable=false,
+			unique=true)
 	private String nameProduct;
-	private Group group;
+	
+	@ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = {})
+	@JoinColumn(name = "subgroup_id")
 	private SubGroup subGroup;
-	private String article;
-	private List<Size> sizes = new ArrayList<>();
+	
+	@Enumerated(EnumType.STRING)
+	private Size size;
+	
+	@Column(name="MATERIAL",length=32)
 	private String material;
+	
+	@Column(name="PRODUCTION",length=32)
 	private String production;
-	private String description;
-	private Image photo;
+	
+	@Column(name="PHOTO",length=100,nullable=false,
+			unique=true)
+	private String photo;
+	
+	@Column(name="COST",nullable=false)
 	private int cost;
-	private final String currency = "���";
-	private List<Comment> commentsOfProduct = new ArrayList<>();
+	
+	@Column(name="CURRENCY",length=32,nullable=false)
+	private String currency;
+	
+	//@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+	//private List<Comment> commentsOfProduct = new ArrayList<>();
 	
 	public Product() {
 		super();
 	}
-
-	public Product(int idProduct, String nameProduct, Group group, SubGroup subGroup, 
-			String article, List<Size> sizes, String material, String production, 
-			String description, int cost, Image photo){
-		this.idProduct = idProduct;
-		this.nameProduct = nameProduct;
-		this.group = group;
+	
+	public Product(SubGroup subGroup, String nameProduct,
+				Size size, String photo, int cost, 
+				String currency) {
+		super();
 		this.subGroup = subGroup;
-		this.article = article;
-		this.sizes = sizes;
-		this.material = material;
-		this.production = production;
-		this.description = description;
-		this.cost = cost;
+		this.nameProduct = nameProduct;
+		this.size = size;
 		this.photo = photo;
-	}
-	
-	public int getIdProduct() {
-		return idProduct;
-	}
-	
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
+		this.cost = cost;
+		this.currency = currency;
 	}
 
 	public String getNameProduct() {
@@ -55,14 +71,6 @@ public class Product extends BaseEntity{
 		this.nameProduct = nameProduct;
 	}
 	
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
 	public SubGroup getSubGroup() {
 		return subGroup;
 	}
@@ -71,20 +79,12 @@ public class Product extends BaseEntity{
 		this.subGroup = subGroup;
 	}
 	
-	public String getArticle() {
-		return article;
+	public Size getSize() {
+		return size;
 	}
 
-	public void setArticle(String article) {
-		this.article = article;
-	}
-
-	public List<Size> getSizes() {
-		return sizes;
-	}
-
-	public void setSizes(List<Size> sizes) {
-		this.sizes = sizes;
+	public void setSize(Size size) {
+		this.size = size;
 	}
 
 	public String getMaterial() {
@@ -103,14 +103,6 @@ public class Product extends BaseEntity{
 		this.production = production;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public int getCost() {
 		return cost;
 	}
@@ -122,22 +114,26 @@ public class Product extends BaseEntity{
 	public String getCurrency() {
 		return currency;
 	}
-
-	public List<Comment> getCommentsOfProduct() {
-		return commentsOfProduct;
+	
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
-	public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
-		this.commentsOfProduct = commentsOfProduct;
-	}
+	//public List<Comment> getCommentsOfProduct() {
+	//	return commentsOfProduct;
+	//}
 
-	public Image getPhoto() {
+	//public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
+	//	this.commentsOfProduct = commentsOfProduct;
+	//}
+
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(Image photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-
 	
+
 }

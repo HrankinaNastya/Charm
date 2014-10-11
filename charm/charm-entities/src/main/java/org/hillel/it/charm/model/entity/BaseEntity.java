@@ -7,13 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.xml.bind.annotation.XmlAttribute;
 
 @MappedSuperclass
 public class BaseEntity{
-	//@Id
-	//@Column(name="ENTITY_ID")
-	//@GeneratedValue(strategy=GenerationType.AUTO)
-	//private int id;
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	//private Person createdBy;
 	//private Person modifiedBy;
 	
@@ -26,13 +27,14 @@ public class BaseEntity{
 		setCreatedAt(new Date());
 	}
 	
-	//public int getId() {
-	//	return id;
-	//}
+	@XmlAttribute(name="ID")
+	public int getId() {
+		return id;
+	}
 	
-	//public void setId(int id) {
-	//	this.id = id;
-	//}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	//public Person getCreatedBy() {
 	//	return createdBy;

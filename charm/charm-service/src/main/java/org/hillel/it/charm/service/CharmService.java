@@ -17,25 +17,33 @@ import org.hillel.it.charm.model.entity.User;
 
 public interface CharmService{
 	
-	//Product repository
+	//Group repository
 	public void addGroup(Group group);
 	public void addSubGroup(SubGroup subGroup);
 	public void addProduct(Product product);
-
-	public List<Group> getGroups();
-	public List<SubGroup> getSubGroups();
-	public List<Product> getProducts();
-
+	
+	public void updateGroup(Group group);
+	public void updateSubGroup(Group subGroup);
+	public void updateProduct(Product product);
+	
 	public Group getGroup(int id);
 	public SubGroup getSubGroup(int id);
 	public Product getProduct(int id);
+
+	public List<Group> getGroups();
+	public List<SubGroup> getSubGroups();
+	public List<SubGroup> getSubGroups(Group group);
+	public List<Product> getProducts();
+	public List<Product> getProducts(SubGroup subgroup);
 	
 	public void deleteGroups();
 	public void deleteGroup(int id);
+	public void deleteSubGroups();
 	public void deleteSubGroups(Group group);
-	public void deleteSubGroup(Group group, int id);
-	public void deleteProducts(Group group, SubGroup subgroup);
-	public void deleteProduct(Group group, SubGroup subgroup, int id);
+	public void deleteSubGroup(int id);
+	public void deleteProducts();
+	public void deleteProducts(SubGroup subgroup);
+	public void deleteProduct(int id);
 	
 	//Person repository
 	public void addAdministrator(Administrator administrator);

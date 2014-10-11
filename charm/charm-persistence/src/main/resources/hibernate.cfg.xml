@@ -6,14 +6,14 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">
-				org.hsqldb.jdbc.JDBCDriver</property>
+				com.mysql.jdbc.Driver</property>
 		<property name="connection.url">
-				jdbc:hsqldb:mem:charm</property>
-		<property name="connection.username">sa</property>
-		<property name="connection.password"></property>
+				jdbc:mysql://localhost:3306/charmmanager</property>
+		<property name="connection.username">admin</property>
+		<property name="connection.password">12345</property>
 
 		<property name="hibernate.dialect">
-			org.hibernate.dialect.HSQLDialect</property>
+			org.hibernate.dialect.MySQLDialect</property>
 		<property name="current_session_context_class">
 			thread</property>
 

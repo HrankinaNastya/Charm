@@ -1,24 +1,21 @@
 package org.hillel.it.charm.model.entity;
 
 public class Person extends BaseEntity{
-	private int idPerson;
 	private String name;
 	private String surname;
 	private String patronymic;
 	private String phone;
 	private String address;
 	private String email;
-
+	private Category category;
+	
 	public Person() {
 		super();
 	}
-
-	private Category category;
 	
-	Person(int idPerson, String name, String surname, String patronymic, 
+	Person(String name, String surname, String patronymic, 
 			String phone, String address, String email, Category category){
 		super();
-		this.idPerson = idPerson;
 		this.name = name;
 		this.surname = surname;
 		this.patronymic = patronymic;
@@ -26,14 +23,6 @@ public class Person extends BaseEntity{
 		this.address = address;
 		this.email = email;
 		this.category = category;
-	}
-	
-	public int getIdPerson() {
-		return idPerson;
-	}
-
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
 	}
 
 	public String getName() {

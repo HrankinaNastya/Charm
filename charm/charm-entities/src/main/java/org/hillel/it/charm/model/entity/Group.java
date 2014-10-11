@@ -1,45 +1,42 @@
 package org.hillel.it.charm.model.entity;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "GROUPS")
 @XmlRootElement
 public class Group extends BaseEntity{
-	@Id
-	@Column(name = "GROUP_ID")
-	@GeneratedValue
-	private int idGroup;
 	
-	@Column(name="NAME",length=32,nullable=false,
+	@Column(name="NAME_GROUP",length=32,nullable=false,
 			unique=true)
 	private String nameGroup;
 	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
+	private List<SubGroup> subGroups;
+	
 	public Group(){
 		super();
+		if (subGroups != null){
+			subGroups = new ArrayList<>();
+		}
 	}
 	
-	public Group(int idGroup, String nameGroup){
-		this.idGroup = idGroup;
+	public Group(String nameGroup){
 		this.nameGroup = nameGroup;
+		if (subGroups != null){
+			subGroups = new ArrayList<>();
+		}
 	}
 	
-
-	@XmlAttribute(name="ID")
-	public int getIdGroup() {
-		return idGroup;
-	}
-	
-	public void setIdGroup(int idGroup) {
-		this.idGroup = idGroup;
-	}
 
 	@XmlElement(name="group")
 	public String getNameGroup() {
@@ -48,6 +45,22 @@ public class Group extends BaseEntity{
 
 	public void setNameGroup(String nameGroup) {
 		this.nameGroup = nameGroup;
+	}
+	
+	public List<SubGroup> getSubGroups() {
+		return subGroups;
+	}
+
+	public void setSubGroups(List<SubGroup> subGroups) {
+		this.subGroups = subGroups;
+	}
+	
+	public void addSubGroup(SubGroup subGroup){
+		if (subGroups != null){
+			subGroups = new ArrayList<>();
+		}
+		subGroups.add(subGroup);
+		subGroup.setGroup(this);
 	}
 
 }

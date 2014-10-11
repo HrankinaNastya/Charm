@@ -3,33 +3,43 @@ package org.hillel.it.charm.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubGroup {
-	private int idSubGroup;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "SUBGROUPS")
+public class SubGroup extends BaseEntity {
+
+	@ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = {})
+	@JoinColumn(name = "group_id")
 	private Group group;
+
+	@Column(name="NAME_SUBGROUP",length=32,nullable=false,
+			unique=true)
 	private String nameSubGroup;
-	private List<Product> products = new ArrayList<>();
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "subGroup")
+	private List<Product> products;
 	
 	public SubGroup() {
 		super();
+		if (products != null){
+			products = new ArrayList<>();
+		}
 	}
 
-	public SubGroup(int idSubGroup, String nameSubGroup){
-		this.idSubGroup = idSubGroup;
-		this.nameSubGroup = nameSubGroup;
-	}
-	
-	public SubGroup(Group group, int idSubGroup, String nameSubGroup){
+	public SubGroup(Group group, String nameSubGroup){
 		this.group = group;
-		this.idSubGroup = idSubGroup;
 		this.nameSubGroup = nameSubGroup;
-	}
-	
-	public int getIdSubGroup() {
-		return idSubGroup;
-	}
-	
-	public void setIdSubGroup(int idSubGroup) {
-		this.idSubGroup = idSubGroup;
+		if (products != null){
+			products = new ArrayList<>();
+		}
 	}
 	
 	public Group getGroup() {

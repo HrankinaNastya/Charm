@@ -13,6 +13,11 @@
     	<artifactId>charm-entities</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	  	<dependency>
+  		<groupId>org.hillel.it</groupId>
+    	<artifactId>charm-persistence</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
   
 

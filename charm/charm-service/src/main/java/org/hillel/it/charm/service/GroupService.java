@@ -10,8 +10,8 @@ import org.hillel.it.charm.model.entity.SubGroup;
 
 public class GroupService {
 	public List<Group> getGroups() {
-		return Arrays.asList(new Group(1, "Dresses"),
-				new Group(2, "Clothing"));
+		return Arrays.asList(new Group("Dresses"),
+				new Group("Clothing"));
 	}
 	
 
@@ -19,7 +19,7 @@ public class GroupService {
 		if(id <=0 ) {
 			return null;
 		}
-		return new Group(1, "Dresses");
+		return new Group("Dresses");
 	}
 	
 	public void updateGroup(Group group) {
