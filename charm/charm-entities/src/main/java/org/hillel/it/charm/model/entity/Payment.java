@@ -1,27 +1,16 @@
 package org.hillel.it.charm.model.entity;
 
-public class Payment {
-	private int idPayment;
+public class Payment extends BaseEntity{
 	private Basket basket;
 	private boolean isPayment;
-	private Person person;
 	
-	public Payment(int idPayment, Basket basket) {
-		this.idPayment = idPayment;
+	public Payment(Basket basket) {
 		this.basket = basket;
 		this.isPayment = false;
 	}
 
 	public Payment() {
 		super();
-	}
-
-	public int getIdPayment() {
-		return idPayment;
-	}
-
-	public void setIdPayment(int idPayment) {
-		this.idPayment = idPayment;
 	}
 
 	public Basket getBasket() {
@@ -40,12 +29,4 @@ public class Payment {
 		this.isPayment = isPayment;
 	}
 
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = basket.getPerson();
-	}
-		
 }

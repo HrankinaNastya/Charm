@@ -3,29 +3,18 @@ package org.hillel.it.charm.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Basket {
-	private int idBasket;
+public class Basket extends BaseEntity {
 	private List<Order> orders = new ArrayList<>();
 	private int costOfOrders;
 	private int amountOfOrders;
-	private Person person;
 	
 	public Basket(){
 		super();
 	}
-	public Basket(int idBasket, List<Order> orders) {
-		this.idBasket = idBasket;
+	public Basket(List<Order> orders) {
 		this.orders = orders;
 		setCostOfOrders();
 		setAmountOfOrders();
-	}
-	
-	public int getIdBasket() {
-		return idBasket;
-	}
-	
-	public void setIdBasket(int idBasket) {
-		this.idBasket = idBasket;
 	}
 	
 	public List<Order> getOrders() {
@@ -44,7 +33,7 @@ public class Basket {
 		for (Order order : orders)
         {
 			this.costOfOrders += order.getAmount() * order.getCost();
-			setPerson(order.getPerson());
+	//		setPerson(order.getPerson());
         }
 	}
 	public int getAmountOfOrders() {
@@ -56,14 +45,5 @@ public class Basket {
 			this.amountOfOrders += order.getAmount();
         }
 	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-	
 	
 }

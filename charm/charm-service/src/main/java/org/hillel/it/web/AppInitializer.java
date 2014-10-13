@@ -3,8 +3,7 @@ package org.hillel.it.web;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
-import org.hillel.it.charm.persistence.DataConfig;
-import org.hillel.it.config.AppConfig;
+import org.hillel.it.charm.persistence.AppConfig;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.WebApplicationInitializer;
@@ -25,7 +24,6 @@ implements WebApplicationInitializer {
 				AnnotationConfigWebApplicationContext(
 				);	
 		context.register(AppConfig.class);
-		context.register(DataConfig.class);
 		servletContext.addListener(new 
 				ContextLoaderListener(context));
 	}

@@ -16,22 +16,23 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.hillel.it.charm.model.entity.Group;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Path("groups")
+@Component
 public class GroupResource {
-	private GroupService groupService 
-	 = new GroupService();
+	@Autowired
+	CharmService charmService;
 	
 	@GET
 	@Produces({ 
 		MediaType.APPLICATION_JSON
 	})
 	public List<Group> getGroups() {
-		return groupService.getGroups();
+		return charmService.getGroups();
 	}
 	
-
-
 	@GET
 	@Produces({ 
 		MediaType.APPLICATION_JSON
@@ -44,7 +45,7 @@ public class GroupResource {
 		}
 		int id = Integer.parseInt(idParam);
 		
-		Group group = groupService.getGroup(id);
+		Group group = charmService.getGroup(id);
 		if(group == null) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -55,8 +56,8 @@ public class GroupResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Group update(Group group) {
-		groupService.updateGroup(group);
-		
+		charmService.updateGroup(group);
+	
 		return group;
 	}
 	
@@ -64,7 +65,7 @@ public class GroupResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Group insert(Group group) {
-		groupService.insertGroup(group);
+		charmService.addGroup(group);
 		
 		return group;
 	}
@@ -77,7 +78,7 @@ public class GroupResource {
 	public Response delete(@PathParam("id") String idParam) {
 		int id = Integer.parseInt(idParam);
 		
-		groupService.deleteGroup(id);
+		charmService.deleteGroup(id);
 		return Response.ok().build();		
 	}	
 	
@@ -90,5 +91,4 @@ public class GroupResource {
 		}
 	}
 
-		
 }

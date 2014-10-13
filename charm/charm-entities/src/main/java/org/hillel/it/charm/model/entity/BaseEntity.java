@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @MappedSuperclass
-public class BaseEntity{
+public class BaseEntity implements Verifiable{
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -66,6 +66,11 @@ public class BaseEntity{
 	
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+	}
+
+	@Override
+	public void verify() {
+		// TODO Auto-generated method stub
 	}
 	
 }

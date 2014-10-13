@@ -1,7 +1,6 @@
 package org.hillel.it.charm.model.entity;
 
-public class Order {
-	private int idOrder;
+public class Order extends BaseEntity{
 	private Product product;
 	private String name;
 	private int amount;
@@ -13,24 +12,15 @@ public class Order {
 		super();
 	}
 	
-	public Order(int idOrder, int amount, Product product, Person person){
-		this.idOrder = idOrder;
+	public Order(int amount, Product product){
 		this.product = product;
 		setName();
 		this.amount = amount;
 		setCost();
-		this.person = person;
+		//this.person = person;
 		//setDataOfPerson();
 	}
 	
-	public int getIdOrder() {
-		return idOrder;
-	}
-	
-	public void setIdOrder(int idOrder) {
-		this.idOrder = idOrder;
-	}
-
 	public Product getProduct() {
 		return product;
 	}

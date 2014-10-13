@@ -8,13 +8,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "GROUPS")
 @XmlRootElement
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@NamedQueries(@NamedQuery(name = Group.QUERY_GROUPS,
+query="from Group")
+)
 public class Group extends BaseEntity{
+	public static final String QUERY_GROUPS = "findGroups";
 	
 	@Column(name="NAME_GROUP",length=32,nullable=false,
 			unique=true)

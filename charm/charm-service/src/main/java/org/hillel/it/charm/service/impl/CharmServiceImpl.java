@@ -2,11 +2,9 @@ package org.hillel.it.charm.service.impl;
 
 import java.util.List;
 
-import org.hillel.it.charm.model.entity.Administrator;
 import org.hillel.it.charm.model.entity.Basket;
 import org.hillel.it.charm.model.entity.Comment;
 import org.hillel.it.charm.model.entity.Group;
-import org.hillel.it.charm.model.entity.Manager;
 import org.hillel.it.charm.model.entity.Order;
 import org.hillel.it.charm.model.entity.Payment;
 import org.hillel.it.charm.model.entity.Person;
@@ -17,157 +15,123 @@ import org.hillel.it.charm.persistence.GroupRepository;
 import org.hillel.it.charm.service.CharmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CharmServiceImpl implements CharmService{
+	
 	@Autowired
 	private GroupRepository groupRepository;
 	
-	public CharmServiceImpl() {
-		
-	}
 	@Override
 	public void addGroup(Group group) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.addGroup(group);
 	}
 
 	@Override
 	public void addSubGroup(SubGroup subGroup) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.addSubGroup(subGroup);
 	}
 
 	@Override
 	public void addProduct(Product product) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.addProduct(product);
 	}
 
 	@Override
 	public void updateGroup(Group group) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.updateGroup(group);		
 	}
 
 	@Override
-	public void updateSubGroup(Group subGroup) {
-		// TODO Auto-generated method stub
-		
+	public void updateSubGroup(SubGroup subGroup) {
+		groupRepository.updateSubGroup(subGroup);
 	}
 
 	@Override
 	public void updateProduct(Product product) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.updateProduct(product);
 	}
 
 	@Override
 	public Group getGroup(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getGroup(id);
 	}
 
 	@Override
 	public SubGroup getSubGroup(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getSubGroup(id);
 	}
 
 	@Override
 	public Product getProduct(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getProduct(id);
 	}
 
 	@Override
 	public List<Group> getGroups() {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getGroups();
 	}
 
 	@Override
 	public List<SubGroup> getSubGroups() {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getSubGroups();
 	}
 
 	@Override
 	public List<SubGroup> getSubGroups(Group group) {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getSubGroups(group);
 	}
 
 	@Override
 	public List<Product> getProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getProducts();
 	}
 
 	@Override
 	public List<Product> getProducts(SubGroup subgroup) {
-		// TODO Auto-generated method stub
-		return null;
+		return groupRepository.getProducts(subgroup);
 	}
 
 	@Override
 	public void deleteGroups() {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteGroups();
 	}
 
 	@Override
 	public void deleteGroup(int id) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteGroup(id);
 	}
 
 	@Override
 	public void deleteSubGroups() {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteSubGroups();
 	}
 
 	@Override
 	public void deleteSubGroups(Group group) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteSubGroups(group);
 	}
 
 	@Override
 	public void deleteSubGroup(int id) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteSubGroup(id);
 	}
 
 	@Override
 	public void deleteProducts() {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteProducts();		
 	}
 
 	@Override
 	public void deleteProducts(SubGroup subgroup) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteProducts(subgroup);
 	}
 
 	@Override
 	public void deleteProduct(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addAdministrator(Administrator administrator) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addManager(Manager manager) {
-		// TODO Auto-generated method stub
-		
+		groupRepository.deleteProduct(id);
 	}
 
 	@Override
@@ -177,31 +141,7 @@ public class CharmServiceImpl implements CharmService{
 	}
 
 	@Override
-	public List<Administrator> getAdministrators() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Manager> getManagers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Administrator getAdministrator(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Manager getManager(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

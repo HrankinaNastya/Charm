@@ -2,11 +2,9 @@ package org.hillel.it.charm.service;
 
 import java.util.List;
 
-import org.hillel.it.charm.model.entity.Administrator;
 import org.hillel.it.charm.model.entity.Basket;
 import org.hillel.it.charm.model.entity.Comment;
 import org.hillel.it.charm.model.entity.Group;
-import org.hillel.it.charm.model.entity.Manager;
 import org.hillel.it.charm.model.entity.Order;
 import org.hillel.it.charm.model.entity.Payment;
 import org.hillel.it.charm.model.entity.Person;
@@ -23,7 +21,7 @@ public interface CharmService{
 	public void addProduct(Product product);
 	
 	public void updateGroup(Group group);
-	public void updateSubGroup(Group subGroup);
+	public void updateSubGroup(SubGroup subGroup);
 	public void updateProduct(Product product);
 	
 	public Group getGroup(int id);
@@ -46,18 +44,9 @@ public interface CharmService{
 	public void deleteProduct(int id);
 	
 	//Person repository
-	public void addAdministrator(Administrator administrator);
-	public void addManager(Manager manager);
 	public void addUser(User user);
-
-	public List<Administrator> getAdministrators();
-	public List<Manager> getManagers();
 	public List<User> getUsers();
-
-	public Administrator getAdministrator(int id);
-	public Manager getManager(int id);
 	public User getUser(int id);
-
 	public void deletePersons();
 	public void deletePerson(int id);
 

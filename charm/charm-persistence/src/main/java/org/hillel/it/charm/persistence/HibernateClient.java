@@ -53,6 +53,14 @@ public class HibernateClient {
 		group1 =(Group) repo.getGroup(1);
 		group1.setNameGroup("Clothing11");
 		repo.updateGroup(group1);
+		
+		List<Group> grs = new ArrayList<>();
+		grs = repo.getGroups();
+		
+		for(Group groussp: repo.getGroups()){
+			System.out.println(groussp.getNameGroup());
+		}
+	
 		//repo.close_factory();
 				
 		/*

@@ -8,4 +8,10 @@
                            
 	<context:component-scan 
 		base-package="org.hillel.it.charm.model.entity" />
+	<context:component-scan 
+		base-package="org.hillel.it" />
+	<context:component-scan 
+		base-package="org.hillel.it.charm.sevice.impl" />
+		<context:component-scan 
+		base-package="org.hillel.it.charm.sevice" />
 </beans>

@@ -13,7 +13,7 @@ public interface GroupRepository {
 	public void addProduct(Product product);
 	
 	public void updateGroup(Group group);
-	public void updateSubGroup(Group subGroup);
+	public void updateSubGroup(SubGroup subGroup);
 	public void updateProduct(Product product);
 	
 	public Group getGroup(int id);
