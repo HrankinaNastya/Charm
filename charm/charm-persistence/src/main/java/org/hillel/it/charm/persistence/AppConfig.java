@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@ComponentScan("org.hillel.it")
 public class AppConfig {
 		
 		@Autowired
