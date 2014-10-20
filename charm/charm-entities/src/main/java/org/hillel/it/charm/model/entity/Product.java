@@ -3,49 +3,58 @@ package org.hillel.it.charm.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "PRODUCTS")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Inheritance(strategy=InheritanceType.JOINED)
+@AttributeOverride(name="id", 
+column = @Column(name="product_id", 
+insertable=false, updatable=false))
+@NamedQueries({@NamedQuery(name="getProducts", query="from Product"), 
+	@NamedQuery(name="deleteProducts", query="delete Product"), 
+	@NamedQuery(name="deleteProductById", query="delete Product "
+			+ "where product_id = :id"),
+	@NamedQuery(name="deleteProductBySubGroupId", query="delete Product "
+			+ "where subgroup_id = :id")
+})
 public class Product extends BaseEntity{
+	public static final String GET_PRODUCTS = "getProducts";
+	public static final String DELETE_PRODUCTS = "deleteProducts";
+	public static final String DELETE_PRODUCT_BY_ID = "deleteProductById";
+	public static final String DELETE_PRODUCT_BY_SUBGROUP_ID = 
+			"deleteProductBySubGroupId";
 	
-	@Column(name="NAME_PRODUCT",length=32,nullable=false,
-			unique=true)
 	private String nameProduct;
-	
-	@ManyToOne(fetch = FetchType.EAGER,optional = false, cascade = {})
-	@JoinColumn(name = "subgroup_id")
 	private SubGroup subGroup;
-	
-	@Enumerated(EnumType.STRING)
 	private Size size;
-	
-	@Column(name="MATERIAL",length=32)
 	private String material;
-	
-	@Column(name="PRODUCTION",length=32)
 	private String production;
-	
-	@Column(name="PHOTO",length=100,nullable=false,
-			unique=true)
 	private String photo;
-	
-	@Column(name="COST",nullable=false)
 	private int cost;
-	
-	@Column(name="CURRENCY",length=32,nullable=false)
 	private String currency;
-	
-	//@OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
-	//private List<Comment> commentsOfProduct = new ArrayList<>();
+	private List<Comment> commentsOfProduct = new ArrayList<>();
 	
 	public Product() {
 		super();
@@ -62,7 +71,21 @@ public class Product extends BaseEntity{
 		this.cost = cost;
 		this.currency = currency;
 	}
+	
+	@Override
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return id;
+	}
+	
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	@Column(name="name_product",length=32,nullable=false,
+			unique=true)
 	public String getNameProduct() {
 		return nameProduct;
 	}
@@ -71,6 +94,8 @@ public class Product extends BaseEntity{
 		this.nameProduct = nameProduct;
 	}
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="subgroupId", referencedColumnName="subgroup_id")
 	public SubGroup getSubGroup() {
 		return subGroup;
 	}
@@ -79,6 +104,7 @@ public class Product extends BaseEntity{
 		this.subGroup = subGroup;
 	}
 	
+	@Enumerated(EnumType.STRING)
 	public Size getSize() {
 		return size;
 	}
@@ -87,6 +113,7 @@ public class Product extends BaseEntity{
 		this.size = size;
 	}
 
+	@Column(name="material",length=32)
 	public String getMaterial() {
 		return material;
 	}
@@ -95,6 +122,7 @@ public class Product extends BaseEntity{
 		this.material = material;
 	}
 
+	@Column(name="production",length=32)
 	public String getProduction() {
 		return production;
 	}
@@ -103,6 +131,7 @@ public class Product extends BaseEntity{
 		this.production = production;
 	}
 
+	@Column(name="cost",nullable=false)
 	public int getCost() {
 		return cost;
 	}
@@ -111,6 +140,7 @@ public class Product extends BaseEntity{
 		this.cost = cost;
 	}
 	
+	@Column(name="currency",length=32,nullable=false)
 	public String getCurrency() {
 		return currency;
 	}
@@ -119,14 +149,20 @@ public class Product extends BaseEntity{
 		this.currency = currency;
 	}
 
-	//public List<Comment> getCommentsOfProduct() {
-	//	return commentsOfProduct;
-	//}
+	@OneToMany(cascade=CascadeType.ALL, 
+			fetch=FetchType.LAZY, mappedBy="product", 
+			orphanRemoval=true)
+	public List<Comment> getCommentsOfProduct() {
+		return commentsOfProduct;
+	}
 
-	//public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
-	//	this.commentsOfProduct = commentsOfProduct;
-	//}
+	public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
+		this.commentsOfProduct = commentsOfProduct;
+	}
 
+	
+	@Column(name="photo",length=100,nullable=false,
+			unique=true)
 	public String getPhoto() {
 		return photo;
 	}
@@ -135,5 +171,4 @@ public class Product extends BaseEntity{
 		this.photo = photo;
 	}
 	
-
 }

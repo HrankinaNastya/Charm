@@ -5,6 +5,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.hillel.it.charm.rest.GrizlyServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;

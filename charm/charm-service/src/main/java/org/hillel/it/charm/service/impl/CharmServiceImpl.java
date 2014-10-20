@@ -2,16 +2,17 @@ package org.hillel.it.charm.service.impl;
 
 import java.util.List;
 
-import org.hillel.it.charm.model.entity.Basket;
+import org.hillel.it.charm.model.entity.Category;
 import org.hillel.it.charm.model.entity.Comment;
 import org.hillel.it.charm.model.entity.Group;
 import org.hillel.it.charm.model.entity.Order;
-import org.hillel.it.charm.model.entity.Payment;
-import org.hillel.it.charm.model.entity.Person;
 import org.hillel.it.charm.model.entity.Product;
 import org.hillel.it.charm.model.entity.SubGroup;
 import org.hillel.it.charm.model.entity.User;
+import org.hillel.it.charm.persistence.CommentRepository;
 import org.hillel.it.charm.persistence.GroupRepository;
+import org.hillel.it.charm.persistence.OrderRepository;
+import org.hillel.it.charm.persistence.UserRepository;
 import org.hillel.it.charm.service.CharmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,12 @@ public class CharmServiceImpl implements CharmService{
 	
 	@Autowired
 	private GroupRepository groupRepository;
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private CommentRepository commentRepository;
+	@Autowired
+	private OrderRepository orderRepository;
 	
 	@Override
 	public void addGroup(Group group) {
@@ -37,21 +44,6 @@ public class CharmServiceImpl implements CharmService{
 	@Override
 	public void addProduct(Product product) {
 		groupRepository.addProduct(product);
-	}
-
-	@Override
-	public void updateGroup(Group group) {
-		groupRepository.updateGroup(group);		
-	}
-
-	@Override
-	public void updateSubGroup(SubGroup subGroup) {
-		groupRepository.updateSubGroup(subGroup);
-	}
-
-	@Override
-	public void updateProduct(Product product) {
-		groupRepository.updateProduct(product);
 	}
 
 	@Override
@@ -136,152 +128,114 @@ public class CharmServiceImpl implements CharmService{
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
+		userRepository.addUser(user);
 		
-	}
-
-	@Override
-	public List<User> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public User getUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRepository.getUser(id);
 	}
 
 	@Override
-	public void deletePersons() {
-		// TODO Auto-generated method stub
-		
+	public List<User> getUsers() {
+		return userRepository.getUsers();
 	}
 
 	@Override
-	public void deletePerson(int id) {
-		// TODO Auto-generated method stub
-		
+	public <T> List<T> getUsersByCategory(Class<T> choice, Category category) {
+		return userRepository.getUsersByCategory(choice, category);
+	}
+
+	@Override
+	public void deleteUser(int id) {
+		userRepository.deleteUser(id);		
+	}
+
+	@Override
+	public void deleteUsers() {
+		userRepository.deleteUsers();
 	}
 
 	@Override
 	public void addComment(Comment comment) {
-		// TODO Auto-generated method stub
+		commentRepository.addComment(comment);
 		
 	}
 
 	@Override
 	public Comment getComment(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return commentRepository.getComment(id);
 	}
 
 	@Override
-	public List<Comment> getComments(Person user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Comment> getComments(User user) {
+		return commentRepository.getComments(user);
 	}
 
 	@Override
 	public List<Comment> getComments(Product product) {
-		// TODO Auto-generated method stub
-		return null;
+		return commentRepository.getComments(product);
 	}
 
 	@Override
 	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
-		return null;
+		return commentRepository.getComments();
 	}
 
 	@Override
 	public void deleteComment(int id) {
-		// TODO Auto-generated method stub
-		
+		commentRepository.deleteComment(id);	
 	}
 
 	@Override
-	public void deleteComments(Person user) {
-		// TODO Auto-generated method stub
-		
+	public void deleteComments(User user) {
+		commentRepository.deleteComments(user);
 	}
 
 	@Override
 	public void deleteComments(Product product) {
-		// TODO Auto-generated method stub
-		
+		commentRepository.deleteComments(product);	
+	}
+
+	@Override
+	public void deleteComments() {
+		commentRepository.deleteComments();
 	}
 
 	@Override
 	public void addOrder(Order order) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addBasket(Basket basket) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addPayment(Payment payment) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Order> getOrders() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Basket> getBaskets() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Basket> getBaskets(Person person) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Payment> getPayments() {
-		// TODO Auto-generated method stub
-		return null;
+		orderRepository.addOrder(order);
 	}
 
 	@Override
 	public Order getOrder(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderRepository.getOrder(id);
 	}
 
 	@Override
-	public Basket getBasket(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> getOrders(User user) {
+		return orderRepository.getOrders(user);
 	}
 
 	@Override
-	public Payment getPayment(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> getOrders() {
+		return orderRepository.getOrders();
 	}
 
 	@Override
 	public void deleteOrder(int id) {
-		// TODO Auto-generated method stub
-		
+		orderRepository.deleteOrder(id);		
 	}
 
 	@Override
-	public void deleteBacket(int id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteOrders(User user) {
+		orderRepository.deleteOrders(user);
+	}
+
+	@Override
+	public void deleteOrders() {
+		orderRepository.deleteOrders();
 	}
 
 }

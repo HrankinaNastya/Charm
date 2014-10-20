@@ -19,68 +19,27 @@ import org.hillel.it.charm.model.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Path("groups")
+@Path("/groups")
 @Component
 public class GroupResource {
 	@Autowired
 	CharmService charmService;
-	
-	@GET
-	@Produces({ 
-		MediaType.APPLICATION_JSON
-	})
-	public List<Group> getGroups() {
-		return charmService.getGroups();
-	}
-	
-	@GET
-	@Produces({ 
-		MediaType.APPLICATION_JSON
-	})
-	@Path("{id}")
-	public Response getGroup(@PathParam("id") String idParam) {
-		if(!isInteger(idParam)) {
-			return Response.status(
-					Status.BAD_REQUEST).build();
-		}
-		int id = Integer.parseInt(idParam);
-		
-		Group group = charmService.getGroup(id);
-		if(group == null) {
-			return Response.status(Status.NOT_FOUND).build();
-		}
-		return Response.ok(group).build();		
-	}
-	
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Group update(Group group) {
-		charmService.updateGroup(group);
-	
-		return group;
-	}
-	
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.TEXT_PLAIN)
 	public Group insert(Group group) {
-		charmService.addGroup(group);
-		
+		charmService.addGroup(group);	
 		return group;
 	}
 	
-	@DELETE
-	@Produces({ 
-		MediaType.APPLICATION_JSON
-	})
-	@Path("{id}")
-	public Response delete(@PathParam("id") String idParam) {
-		int id = Integer.parseInt(idParam);
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getTest2() {
+		Group group = insert(new Group("dresses"));
 		
-		charmService.deleteGroup(id);
-		return Response.ok().build();		
-	}	
+		return "Create user: emain - " + group.getNameGroup();
+	}
+
 	
 	private boolean isInteger(String text) {
 		try {

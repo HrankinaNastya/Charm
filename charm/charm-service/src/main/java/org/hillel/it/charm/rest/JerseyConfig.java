@@ -1,4 +1,4 @@
-package org.hillel.it.config;
+package org.hillel.it.charm.rest;
 
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;

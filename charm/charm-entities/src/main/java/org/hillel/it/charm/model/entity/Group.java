@@ -5,9 +5,16 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -19,20 +26,22 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name = "GROUPS")
-@XmlRootElement
+@Table(name="GROUPS")
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-@NamedQueries(@NamedQuery(name = Group.QUERY_GROUPS,
-query="from Group")
-)
+@Inheritance(strategy=InheritanceType.JOINED)
+@AttributeOverride(name="id", 
+column = @Column(name="group_id", 
+insertable=false, updatable=false))
+@NamedQueries({@NamedQuery(name="getGroups", query="from Group"), 
+	@NamedQuery(name="deleteGroups", query="delete Group"), 
+	@NamedQuery(name="deleteGroupById", query="delete Group where group_id = :id")
+})
 public class Group extends BaseEntity{
-	public static final String QUERY_GROUPS = "findGroups";
+	public static final String GET_GROUPS = "getGroups";
+	public static final String DELETE_GROUPS = "deleteGroups";
+	public static final String DELETE_GROUP_BY_ID = "deleteGroupById";
 	
-	@Column(name="NAME_GROUP",length=32,nullable=false,
-			unique=true)
 	private String nameGroup;
-	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
 	private List<SubGroup> subGroups;
 	
 	public Group(){
@@ -49,8 +58,20 @@ public class Group extends BaseEntity{
 		}
 	}
 	
-
-	@XmlElement(name="group")
+	@Override
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	public int getId() {
+		return id;
+	}
+	
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Column(name="name_group",length=32,nullable=false,
+			unique=true)
 	public String getNameGroup() {
 		return nameGroup;
 	}
@@ -59,6 +80,9 @@ public class Group extends BaseEntity{
 		this.nameGroup = nameGroup;
 	}
 	
+	@OneToMany(cascade=CascadeType.ALL, 
+	fetch=FetchType.LAZY, mappedBy="group", 
+	orphanRemoval=true)
 	public List<SubGroup> getSubGroups() {
 		return subGroups;
 	}

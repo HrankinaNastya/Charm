@@ -6,28 +6,24 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @MappedSuperclass
-public class BaseEntity implements Verifiable{
-	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	//private Person createdBy;
-	//private Person modifiedBy;
+public class BaseEntity {
 	
-	@Column(name="CREATED_AT",updatable=false)
+	protected int id;
+	private User createdBy;
+	private User modifiedBy;
 	private Date createdAt;
-	@Column(name="MODIFIED_AT")
 	private Date modifiedAt;
 	
 	public BaseEntity(){
 		setCreatedAt(new Date());
 	}
 	
-	@XmlAttribute(name="ID")
 	public int getId() {
 		return id;
 	}
@@ -36,22 +32,27 @@ public class BaseEntity implements Verifiable{
 		this.id = id;
 	}
 	
-	//public Person getCreatedBy() {
-	//	return createdBy;
-	//}
+	@OneToOne
+	@JoinColumn(name="created_by", referencedColumnName="user_id")
+	public User getCreatedBy() {
+		return createdBy;
+	}
 	
-	//public void setCreatedBy(Person createdBy) {
-	//	this.createdBy = createdBy;
-	//}
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
 	
-	//public Person getModifiedBy() {
-	//	return modifiedBy;
-	//}
+	@OneToOne
+	@JoinColumn(name="modified_by", referencedColumnName="user_id")
+	public User getModifiedBy() {
+		return modifiedBy;
+	}
 	
-//	public void setModifiedBy(Person modifiedBy) {
-//		this.modifiedBy = modifiedBy;
-//	}
+	public void setModifiedBy(User modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 	
+	@Column(name="created_at", nullable=false)
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -60,6 +61,7 @@ public class BaseEntity implements Verifiable{
 		this.createdAt = createdAt;
 	}
 	
+	@Column(name="modified_at")
 	public Date getModifiedAt() {
 		return modifiedAt;
 	}
@@ -68,9 +70,4 @@ public class BaseEntity implements Verifiable{
 		this.modifiedAt = modifiedAt;
 	}
 
-	@Override
-	public void verify() {
-		// TODO Auto-generated method stub
-	}
-	
 }

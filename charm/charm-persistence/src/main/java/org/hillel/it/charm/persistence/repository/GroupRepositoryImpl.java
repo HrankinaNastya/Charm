@@ -4,6 +4,12 @@ package org.hillel.it.charm.persistence.repository;
 import java.util.Iterator;
 import java.util.List;
 
+
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.hillel.it.charm.model.entity.Group;
 import org.hillel.it.charm.model.entity.Product;
 import org.hillel.it.charm.model.entity.SubGroup;
@@ -13,210 +19,123 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class GroupRepositoryImpl implements GroupRepository{
 
-	@Autowired
-	private SessionFactory factory;
+	@PersistenceContext
+	private EntityManager em;
 	
+	@Override
 	public void addGroup(Group group) {
-		Session session = factory.
-				getCurrentSession();
-		session.save(group);
+		em.persist(group);
 	}
 
+	@Override
 	public void addSubGroup(SubGroup subGroup) {
-		Session session = factory.
-				getCurrentSession();
-		session.save(subGroup);
+		em.persist(subGroup);
 	}
 
+	@Override
 	public void addProduct(Product product) {
-		Session session = factory.
-				getCurrentSession();
-		session.save(product);
+		em.persist(product);
 	}
 	
-	public void updateGroup(Group group){
-		Session session = factory.
-				getCurrentSession();
-		session.update(group);
-	}
-	
-	public void updateSubGroup(SubGroup subGroup){
-		Session session = factory.
-				getCurrentSession();
-		session.update(subGroup);	
-	}
-	
-	public void updateProduct(Product product){
-		Session session = factory.
-				getCurrentSession();
-			session.update(product);
-	}
-	
+	@Override
+	@Transactional(readOnly=true)
 	public Group getGroup(int id) {
-		Session session = factory.
-				getCurrentSession();
-		Group group = (Group) session.get(Group.class, id);
-		return group;
+		return em.find(Group.class, id);
 	}
 
+	@Override
+	@Transactional(readOnly=true)
 	public SubGroup getSubGroup(int id) {
-		Session session = factory.
-				getCurrentSession();
-		SubGroup subgroup = (SubGroup) session.get(SubGroup.class, id);		
-		return subgroup;
+		return em.find(SubGroup.class, id);
 	}
 
+	@Override
+	@Transactional(readOnly=true)
 	public Product getProduct(int id) {
-		Session session = factory.
-				getCurrentSession();
-		Product product = (Product) session.get(Product.class, id);		
-		return product;
+		return em.find(Product.class, id);
 	}
 
-	
-	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
 	public List<Group> getGroups() {
-		List<Group> groups = null;
-		Session session = factory.
-				getCurrentSession();
-		//Criteria criteria = session.createCriteria(Group.class);
-		//groups = criteria.list();
-		groups = session.createQuery("from Group")
-			      		.list();
-		return groups;
+		return em.createNamedQuery(Group.GET_GROUPS,
+				Group.class).getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
 	public List<SubGroup> getSubGroups() {
-		List<SubGroup> subgroups = null;
-		Session session = factory.
-				getCurrentSession();
-		subgroups = session.createQuery("from SubGroup")
-			      		.list();
-		return subgroups;
+		return em.createNamedQuery(SubGroup.GET_SUBGROUPS,
+				SubGroup.class).getResultList();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
 	public List<SubGroup> getSubGroups(Group group) {
-		List<SubGroup> subgroups = null;
-		Session session = factory.
-				getCurrentSession();
-		subgroups = session.createQuery("from SubGroup "
-				+ "where group_id = " + group.getId())
-			            .list();
-		return subgroups;
+		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
 	public List<Product> getProducts(SubGroup subgroup) {
-		List<Product> products = null;
-		Session session = factory.
-				getCurrentSession();
-		products = session.createQuery("from Product "
-				+ "where subgroup_id = "+ subgroup.getId())
-						.list();
-		return products;
+		return null;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly=true)
 	public List<Product> getProducts() {
-		List<Product> products = null;
-		Session session = factory.
-				getCurrentSession();
-		products = session.createQuery("from Product")
-			            .list();
-		return products;
+		return em.createNamedQuery(Product.GET_PRODUCTS,
+				Product.class).getResultList();
 	}
 
+	@Override
 	public void deleteGroups() {
-		List<Group> groups = null;
-		Session session = factory.
-				getCurrentSession();
-		groups = getGroups();
-			if (null != groups) {
-				deleteSubGroups();
-				session.delete(groups);
-			}
+		em.createNamedQuery(Group.DELETE_GROUPS);
 	}
 
+	@Override
 	public void deleteGroup(int id) {
-		Group group = null;
-		Session session = factory.
-				getCurrentSession();
-		group = (Group) session.get(Group.class, id);
-			if (null != group) {
-				deleteSubGroups(group);
-				session.delete(group);
-			}
+		Query query = em.createNamedQuery(Group.DELETE_GROUP_BY_ID);
+		query.setParameter("id", id);
 	}
 	
+	@Override
 	public void deleteSubGroups(){
-		List<SubGroup> subgroups = null;
-		Session session = factory.
-				getCurrentSession();
-		subgroups = getSubGroups();
-			if (null != subgroups) {
-				deleteProducts();
-				session.delete(subgroups);
-			}
+		em.createNamedQuery(SubGroup.DELETE_SUBGROUPS);
 	}
 	
+	@Override
 	public void deleteSubGroups(Group group){
-		List<SubGroup> subgroups = null;
-		Session session = factory.
-				getCurrentSession();
-		subgroups = getSubGroups(group);
-			if (null != subgroups) {
-				Iterator<SubGroup> itr = subgroups.iterator();
-				while(itr.hasNext()){
-					deleteProducts(itr.next());
-				}
-				session.delete(subgroups);
-			}
+		Query query = em.createNamedQuery(SubGroup.DELETE_SUBGROUP_BY_GROUP_ID);
+		query.setParameter("id", group.getId());
 	}
 	
+	@Override
 	public void deleteSubGroup(int id){
-		SubGroup subgroup = null;
-		Session session = factory.
-				getCurrentSession();
-		subgroup = (SubGroup) session.get(SubGroup.class, id);
-			if (null != subgroup) {
-				session.delete(subgroup);
-			}		
+		Query query = em.createNamedQuery(SubGroup.DELETE_SUBGROUP_BY_ID);
+		query.setParameter("id", id);
 	}
 	
+	@Override
 	public void deleteProducts(){
-		List<Product> products = null;
-		Session session = factory.
-				getCurrentSession();
-		products = getProducts();
-			if (null != products) {
-				session.delete(products);
-			}
+		em.createNamedQuery(Product.DELETE_PRODUCTS);
 	}
 	
+	@Override
 	public void deleteProducts(SubGroup subgroup){
-		List<Product> products = null;
-		Session session = factory.
-				getCurrentSession();
-		products = getProducts(subgroup);
-			if (null != products) {
-				session.delete(products);
-			}
+		Query query = em.createNamedQuery(Product.DELETE_PRODUCT_BY_SUBGROUP_ID);
+		query.setParameter("id", subgroup.getId());
 	}
 	
+	@Override
 	public void deleteProduct(int id){
-		Product product = null;
-		Session session = factory.
-				getCurrentSession();
-		product = (Product) session.get(Product.class, id);
-			if (null != product) {
-				session.delete(product);
-			}
+		Query query = em.createNamedQuery(Product.DELETE_PRODUCT_BY_ID);
+		query.setParameter("id", id);
 	}
 	
 }
