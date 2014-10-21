@@ -19,6 +19,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -49,7 +52,7 @@ public class SubGroup extends BaseEntity {
 	
 	public SubGroup() {
 		super();
-		if (products != null){
+		if (products == null){
 			products = new ArrayList<>();
 		}
 	}
@@ -57,7 +60,7 @@ public class SubGroup extends BaseEntity {
 	public SubGroup(Group group, String nameSubGroup){
 		this.group = group;
 		this.nameSubGroup = nameSubGroup;
-		if (products != null){
+		if (products == null){
 			products = new ArrayList<>();
 		}
 	}
@@ -65,6 +68,7 @@ public class SubGroup extends BaseEntity {
 	@Override
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@XmlAttribute(name="subgroup_id")
 	public int getId() {
 		return id;
 	}
@@ -76,6 +80,7 @@ public class SubGroup extends BaseEntity {
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="groupId", referencedColumnName="group_id")
+	@XmlAnyElement
 	public Group getGroup() {
 		return group;
 	}
@@ -86,6 +91,7 @@ public class SubGroup extends BaseEntity {
 	
 	@Column(name="name_subgroup",length=32,nullable=false,
 			unique=true)
+	@XmlElement(name="name_subgroup")
 	public String getNameSubGroup() {
 		return nameSubGroup;
 	}

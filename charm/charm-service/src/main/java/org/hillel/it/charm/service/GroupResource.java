@@ -19,25 +19,26 @@ import org.hillel.it.charm.model.entity.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Path("/groups")
+@Path("groups")
 @Component
 public class GroupResource {
 	@Autowired
 	CharmService charmService;
+
 	@POST
-	@Produces(MediaType.TEXT_PLAIN)
-	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Group insert(Group group) {
 		charmService.addGroup(group);	
 		return group;
 	}
 	
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getTest2() {
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Group> getTest2() {
 		Group group = insert(new Group("dresses"));
-		
-		return "Create user: emain - " + group.getNameGroup();
+		group = insert(new Group("clothing"));
+		return charmService.getGroups();
 	}
 
 	

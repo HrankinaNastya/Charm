@@ -3,6 +3,8 @@ package org.hillel.it.charm.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAnyElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.AttributeOverride;
@@ -36,31 +38,27 @@ insertable=false, updatable=false))
 	@NamedQuery(name="deleteGroups", query="delete Group"), 
 	@NamedQuery(name="deleteGroupById", query="delete Group where group_id = :id")
 })
+@XmlRootElement
 public class Group extends BaseEntity{
 	public static final String GET_GROUPS = "getGroups";
 	public static final String DELETE_GROUPS = "deleteGroups";
 	public static final String DELETE_GROUP_BY_ID = "deleteGroupById";
 	
 	private String nameGroup;
-	private List<SubGroup> subGroups;
+	private List<SubGroup> subGroups = new ArrayList<>();
 	
 	public Group(){
 		super();
-		if (subGroups != null){
-			subGroups = new ArrayList<>();
-		}
 	}
 	
 	public Group(String nameGroup){
 		this.nameGroup = nameGroup;
-		if (subGroups != null){
-			subGroups = new ArrayList<>();
-		}
 	}
 	
 	@Override
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@XmlAttribute(name="group_id")
 	public int getId() {
 		return id;
 	}
@@ -72,6 +70,7 @@ public class Group extends BaseEntity{
 	
 	@Column(name="name_group",length=32,nullable=false,
 			unique=true)
+	@XmlElement(name="name_group")
 	public String getNameGroup() {
 		return nameGroup;
 	}
@@ -83,6 +82,7 @@ public class Group extends BaseEntity{
 	@OneToMany(cascade=CascadeType.ALL, 
 	fetch=FetchType.LAZY, mappedBy="group", 
 	orphanRemoval=true)
+	@XmlAnyElement
 	public List<SubGroup> getSubGroups() {
 		return subGroups;
 	}
