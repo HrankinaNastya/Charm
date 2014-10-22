@@ -34,6 +34,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 column = @Column(name="subgroup_id", 
 insertable=false, updatable=false))
 @NamedQueries({@NamedQuery(name="getSubGroups", query="from SubGroup"), 
+	@NamedQuery(name="getSubGroupByGroupId", query="from SubGroup "
+			+ "where group_id = :id"),
 	@NamedQuery(name="deleteSubGroups", query="delete SubGroup"), 
 	@NamedQuery(name="deleteSubGroupById", query="delete SubGroup "
 			+ "where subgroup_id = :id"),
@@ -42,6 +44,8 @@ insertable=false, updatable=false))
 })
 public class SubGroup extends BaseEntity {
 	public static final String GET_SUBGROUPS = "getSubGroups";
+	public static final String GET_SUBGROUP_BY_GROUP_ID = 
+			"getSubGroupByGroupId";
 	public static final String DELETE_SUBGROUPS = "deleteSubGroups";
 	public static final String DELETE_SUBGROUP_BY_ID = "deleteSubGroupById";
 	public static final String DELETE_SUBGROUP_BY_GROUP_ID = 
@@ -100,15 +104,20 @@ public class SubGroup extends BaseEntity {
 		this.nameSubGroup = nameSubGroup;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, 
-			fetch=FetchType.LAZY, mappedBy="subGroup", 
-			orphanRemoval=true)
+	@OneToMany(mappedBy="subGroup")
 	public List<Product> getProducts() {
 		return products;
 	}
 	
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	@Override
+	public String toString() {
+		return "SubGroup [group=" + group.getId() + ", nameSubGroup=" + nameSubGroup
+				+ "id=" + id + ", getCreatedBy()="
+				+ getCreatedBy().getId() + "]";
 	}
 
 }

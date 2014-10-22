@@ -33,6 +33,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 column = @Column(name="product_id", 
 insertable=false, updatable=false))
 @NamedQueries({@NamedQuery(name="getProducts", query="from Product"), 
+	@NamedQuery(name="getProductBySubGroupId", query="from Product "
+			+ "where subgroup_id = :id"),
 	@NamedQuery(name="deleteProducts", query="delete Product"), 
 	@NamedQuery(name="deleteProductById", query="delete Product "
 			+ "where product_id = :id"),
@@ -41,6 +43,8 @@ insertable=false, updatable=false))
 })
 public class Product extends BaseEntity{
 	public static final String GET_PRODUCTS = "getProducts";
+	public static final String GET_PRODUCT_BY_SUBGROUP_ID = 
+			"getProductBySubGroupId";
 	public static final String DELETE_PRODUCTS = "deleteProducts";
 	public static final String DELETE_PRODUCT_BY_ID = "deleteProductById";
 	public static final String DELETE_PRODUCT_BY_SUBGROUP_ID = 
@@ -149,9 +153,7 @@ public class Product extends BaseEntity{
 		this.currency = currency;
 	}
 
-	@OneToMany(cascade=CascadeType.ALL, 
-			fetch=FetchType.LAZY, mappedBy="product", 
-			orphanRemoval=true)
+	@OneToMany(mappedBy="product")
 	public List<Comment> getCommentsOfProduct() {
 		return commentsOfProduct;
 	}
@@ -159,7 +161,6 @@ public class Product extends BaseEntity{
 	public void setCommentsOfProduct(List<Comment> commentsOfProduct) {
 		this.commentsOfProduct = commentsOfProduct;
 	}
-
 	
 	@Column(name="photo",length=100,nullable=false,
 			unique=true)
@@ -170,5 +171,16 @@ public class Product extends BaseEntity{
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [nameProduct=" + nameProduct + ", subGroup=" 
+				+ subGroup.getId() + ", size=" + size + ", material=" 
+				+ material + ", production=" + production + ", photo="
+				+ photo + ", cost=" + cost + ", currency=" + currency
+				+ ", id=" + id + ", getCreatedBy()="+ getCreatedBy().
+				getId()+ "]";
+	}
+	
 	
 }

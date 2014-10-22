@@ -6,10 +6,13 @@ import java.util.List;
 
 
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import org.hillel.it.charm.model.entity.Comment;
 import org.hillel.it.charm.model.entity.Group;
 import org.hillel.it.charm.model.entity.Product;
 import org.hillel.it.charm.model.entity.SubGroup;
@@ -45,7 +48,8 @@ public class GroupRepositoryImpl implements GroupRepository{
 	@Override
 	@Transactional(readOnly=true)
 	public Group getGroup(int id) {
-		return em.find(Group.class, id);
+		Group group = em.find(Group.class, id);
+		return group;
 	}
 
 	@Override
@@ -77,13 +81,21 @@ public class GroupRepositoryImpl implements GroupRepository{
 	@Override
 	@Transactional(readOnly=true)
 	public List<SubGroup> getSubGroups(Group group) {
-		return null;
+		TypedQuery<SubGroup> query = em.createNamedQuery(
+				SubGroup.GET_SUBGROUP_BY_GROUP_ID, 
+				SubGroup.class);
+		query.setParameter("id", group.getId());
+		return query.getResultList();
 	}
 
 	@Override
 	@Transactional(readOnly=true)
 	public List<Product> getProducts(SubGroup subgroup) {
-		return null;
+		TypedQuery<Product> query = em.createNamedQuery(
+				Product.GET_PRODUCT_BY_SUBGROUP_ID, 
+				Product.class);
+		query.setParameter("id", subgroup.getId());
+		return query.getResultList();
 	}
 	
 	@Override

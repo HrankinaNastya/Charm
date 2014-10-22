@@ -69,7 +69,7 @@ public class Comment extends BaseEntity{
 		this.id = id;
 	}
 	
-	@Column(name="comment")
+	@Column(name="commentary",length=32,nullable=false)
 	public String getComment() {
 		return comment;
 	}
@@ -88,5 +88,14 @@ public class Comment extends BaseEntity{
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
+	@Override
+	public String toString() {
+		return "Comment [comment=" + comment + ", product=" + product.
+				getId() + ", id=" + id + ", getCreatedBy()=" + getCreatedBy().
+				getId() + "]";
+	}
+	
+	
 	
 }

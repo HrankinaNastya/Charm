@@ -44,7 +44,7 @@ public class User extends BaseEntity{
 		super();
 	}
 	
-	User(String phone, String login, String pass){
+	public User(String phone, String login, String pass){
 		super();
 		this.phone = phone;
 		this.login = login;
@@ -57,6 +57,7 @@ public class User extends BaseEntity{
 	public int getId() {
 		return id;
 	}
+	
 	@Override
 	public void setId(int id) {
 		this.id = id;
@@ -134,6 +135,15 @@ public class User extends BaseEntity{
 
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", surname=" + surname + ", phone="
+				+ phone + ", address=" + address + ", email=" + email
+				+ ", category=" + category + ", login=" + login + ", pass="
+				+ pass + ", id=" + id + ", getCreatedBy()=" + getCreatedBy()
+				+ "]";
 	}
 	
 }

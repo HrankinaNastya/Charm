@@ -105,5 +105,14 @@ public class Order extends BaseEntity{
 	public void setPaid(boolean isPaid) {
 		this.isPaid = isPaid;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [product=" + product.getId() + ", amount=" 
+				+ amount + ", cost=" + cost + ", isPaid=" + isPaid
+				+ ", id=" + id + ", getCreatedBy()=" + getCreatedBy().
+				getId() + "]";
+	}
+	
 	
 }

@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.hillel.it.charm.model.entity.Group;
+import org.hillel.it.charm.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,10 +36,18 @@ public class GroupResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Group> getTest2() {
-		Group group = insert(new Group("dresses"));
-		group = insert(new Group("clothing"));
-		return charmService.getGroups();
+	public List<Group> getGroups() {
+		List<Group> groups= null;
+		int count = 0;
+		if (count==0){
+			Group group = new Group("dresses");
+			insert(group);
+			group = insert(new Group("clothing"));
+			count++;			
+			System.out.println(count);
+		}
+		groups = charmService.getGroups();
+		return groups;
 	}
 
 	

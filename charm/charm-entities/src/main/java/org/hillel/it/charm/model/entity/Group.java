@@ -79,9 +79,10 @@ public class Group extends BaseEntity{
 		this.nameGroup = nameGroup;
 	}
 	
-	@OneToMany(cascade=CascadeType.ALL, 
-	fetch=FetchType.LAZY, mappedBy="group", 
-	orphanRemoval=true)
+	 @OneToMany(mappedBy="group")
+	//@OneToMany(cascade=CascadeType.ALL, 
+	//fetch=FetchType.LAZY, mappedBy="group", 
+	//orphanRemoval=true)
 	@XmlAnyElement
 	public List<SubGroup> getSubGroups() {
 		return subGroups;
@@ -90,13 +91,11 @@ public class Group extends BaseEntity{
 	public void setSubGroups(List<SubGroup> subGroups) {
 		this.subGroups = subGroups;
 	}
-	
-	public void addSubGroup(SubGroup subGroup){
-		if (subGroups != null){
-			subGroups = new ArrayList<>();
-		}
-		subGroups.add(subGroup);
-		subGroup.setGroup(this);
-	}
 
+	@Override
+	public String toString() {
+		return "Group [nameGroup=" + nameGroup + ", id=" + id +
+				", getCreatedBy()=" + getCreatedBy().getId() + "]";
+	}
+	
 }
