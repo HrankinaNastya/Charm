@@ -1,0 +1,10 @@
+rootProject.name = 'charm'
+include ':charm-entities'
+include ':charm-model'
+include ':charm-persistence'
+include ':charm-service'
+
+project(':charm-entities').projectDir = "$rootDir/charm-entities" as File
+project(':charm-model').projectDir = "$rootDir/charm-model" as File
+project(':charm-persistence').projectDir = "$rootDir/charm-persistence" as File
+project(':charm-service').projectDir = "$rootDir/charm-service" as File
