@@ -1,0 +1,16 @@
+<html ng-app="store">
+<head>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+</head>
+<body ng-controller="StoreController as store">
+	<script type="text/javascript" src="scripts/angular.min.js"></script>
+	<script type="text/javascript" src="scripts/app.js"></script>
+
+	<div align="center">
+		Our polls:
+		<div ng-repeat="poll in store.polls | orderBy: 'question'">
+			<h6>{{poll.question}}</h4>
+		</div>
+	</div>
+</body>
+</html>
