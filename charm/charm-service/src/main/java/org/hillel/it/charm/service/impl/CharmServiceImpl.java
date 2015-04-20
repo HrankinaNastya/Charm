@@ -5,12 +5,14 @@ import java.util.List;
 import org.hillel.it.charm.model.entity.Category;
 import org.hillel.it.charm.model.entity.Comment;
 import org.hillel.it.charm.model.entity.Group;
+import org.hillel.it.charm.model.entity.Map;
 import org.hillel.it.charm.model.entity.Order;
 import org.hillel.it.charm.model.entity.Product;
 import org.hillel.it.charm.model.entity.SubGroup;
 import org.hillel.it.charm.model.entity.User;
 import org.hillel.it.charm.persistence.CommentRepository;
 import org.hillel.it.charm.persistence.GroupRepository;
+import org.hillel.it.charm.persistence.MapRepository;
 import org.hillel.it.charm.persistence.OrderRepository;
 import org.hillel.it.charm.persistence.UserRepository;
 import org.hillel.it.charm.service.CharmService;
@@ -30,6 +32,9 @@ public class CharmServiceImpl implements CharmService{
 	private CommentRepository commentRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private MapRepository mapRepository;
+	
 	
 	@Override
 	public void addGroup(Group group) {
@@ -236,6 +241,16 @@ public class CharmServiceImpl implements CharmService{
 	@Override
 	public void deleteOrders() {
 		orderRepository.deleteOrders();
+	}
+
+	@Override
+	public Map getMap(Integer id) {
+		return mapRepository.getMap(id);
+	}
+
+	@Override
+	public List<Map> getMaps() {
+		return mapRepository.getMaps();
 	}
 
 }

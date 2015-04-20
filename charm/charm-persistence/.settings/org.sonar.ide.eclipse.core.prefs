@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+extraProperties=sonar.host.url\=http\://localhost\:9000\r\nsonar.jdbc.password\=sonar\r\nsonar.jdbc.url\=jdbc\:h2\:-/sonar\r\nsonar.jdbc.username\=sonar
+projectKey=org.hillel.it\:charm-persistence
+serverUrl=
+version=2

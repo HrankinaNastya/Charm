@@ -10,6 +10,8 @@ import org.hillel.it.charm.model.entity.Product;
 import org.hillel.it.charm.model.entity.SubGroup;
 import org.hillel.it.charm.model.entity.User;
 
+import org.hillel.it.charm.model.entity.Map;
+
 
 public interface CharmService{
 	
@@ -72,6 +74,7 @@ public interface CharmService{
 	public void deleteOrders(User user);
 	public void deleteOrders();
 
-
+	public Map getMap(Integer id);
+	public List<Map> getMaps();
 	
 }
